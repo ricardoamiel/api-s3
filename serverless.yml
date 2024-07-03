@@ -3,8 +3,7 @@ service: api-s3
 
 provider:
   name: aws
-  runtime: python3.12	
-  # Default memory size for functions (default: 256MB)
+  runtime: python3.12
   memorySize: 256
   iam:
     role: arn:aws:iam::620587230140:role/LabRole
@@ -24,6 +23,22 @@ functions:
     events:
       - http:
           path: /s3/bucket/lista-objetos
+          method: post
+          cors: true
+          integration: lambda
+  crear_bucket:
+    handler: crear_bucket.lambda_handler
+    events:
+      - http:
+          path: /s3/crear-bucket
+          method: post
+          cors: true
+          integration: lambda
+  crear_carpeta:
+    handler: crear_carpeta.lambda_handler
+    events:
+      - http:
+          path: /s3/crear-carpeta
           method: post
           cors: true
           integration: lambda
